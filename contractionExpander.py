@@ -1,5 +1,6 @@
 import re
 simple_contractions = {
+    re.compile(r"\bcannot\b", re.I | re.U): "can not",
     re.compile(r"\bcan'?t\b", re.I | re.U): "can not",
     re.compile(r"\bcan'?t'?ve\b", re.I | re.U): "can not have",
     re.compile(r"\b'?cause\b", re.I | re.U): "because",

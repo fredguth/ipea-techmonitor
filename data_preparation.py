@@ -114,7 +114,7 @@ def tokenize(df, text_column):
 
 
 def remove_stopwords(input):
-    stop_words = set(stopwords.words('english') + list(punctuation) + [' ', 'rt', '...', '-->', ']:', '}:'])
+    stop_words = set(stopwords.words('english') + list(punctuation) + [' ', 'rt', '...', '..', '....','-->', ']:', '}:'])
     output = [i for i in input if i not in stop_words]
     return output
 
@@ -142,11 +142,12 @@ def clean_tokens(df):
 
 #main
 setup()
-input = 'twitter.csv'
-output = 'tokenized.data'
+input = './data/twitter.csv'
+output = './data/tokenized.data'
+text_column = 'Tweet'
 tknzr = TweetTokenizer(preserve_case=False, strip_handles=True, reduce_len=True)
 lmtzr = WordNetLemmatizer()
-cleaned = clean_text(read_data(input), 'Tweet')
-cleaned.to_pickle('cleaned.data')
-clean_tokens(tokenize(cleaned, 'Tweet')).to_pickle(output)
+cleaned = clean_text(read_data(input), text_column)
+# cleaned.to_pickle('./data/cleaned.data')
+clean_tokens(tokenize(cleaned, text_column)).to_pickle(output)
 

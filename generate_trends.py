@@ -19,7 +19,7 @@ def setup():
 def flatNestedList(list_of_lists):
     return [val for sublist in list_of_lists for val in sublist]
 
-def getSemesterTermFrequencyMatrixFrom(dataframe, column='Unigrams', min_freq=12, max_freq=80):
+def getSemesterTermFrequencyMatrixFrom(dataframe, column='Unigrams', min_freq=5, max_freq=500, max_features=30000):
     df = pd.DataFrame(dataframe[column])
     df = df.resample('D',closed='left', label='left').apply(flatNestedList)
     cv = CountVectorizer(tokenizer=(lambda x: x), preprocessor=(lambda x: x), min_df=min_freq, max_df=max_freq)
@@ -59,8 +59,10 @@ tweets = pd.read_pickle('./data/tokenized.data')
 dataframe = tweets
 column = 'Bigrams'
 output = './data/trends.xls'
-semterm, columns = getSemesterTermFrequencyMatrixFrom(tweets, 'Bigrams')
+semterm, columns = getSemesterTermFrequencyMatrixFrom(tweets, column)
 semterm = normalize(semterm)
 p = getPoisson(semterm)
-trends = generateTrends(p, columns, 1000)
+trends = generateTrends(p, columns, 5000)
 trends.to_excel(output)
+df=p
+(df.unstack().sort_values()[:1000]).to_excel('topbi.xls')

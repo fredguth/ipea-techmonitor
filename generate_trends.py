@@ -19,7 +19,7 @@ def setup():
 def flatNestedList(list_of_lists):
     return [val for sublist in list_of_lists for val in sublist]
 
-def getSemesterTermFrequencyMatrixFrom(dataframe, column='Unigrams', min_freq=5, max_freq=500, max_features=30000):
+def getSemesterTermFrequencyMatrixFrom(dataframe, column='Unigrams', min_freq=5, max_freq=500, max_features=50000):
     df = pd.DataFrame(dataframe[column])
     df = df.resample('D',closed='left', label='left').apply(flatNestedList)
     cv = CountVectorizer(tokenizer=(lambda x: x), preprocessor=(lambda x: x), min_df=min_freq, max_df=max_freq)
@@ -45,10 +45,10 @@ def getPoisson(df):
     return p
 
 
-def generateTrends(df, columns, size):
+def generateTrends(df, columns, size, threshold):
     ll=[]
     for c in df.columns:
-        ll.append(np.array(df[df.loc[:,c] >0].sort_values(by=[c],ascending=True)[:size].loc[:,c].index))
+        ll.append(np.array(df[df.loc[:,c] < threshold].sort_values(by=[c],ascending=True)[:size].loc[:,c].index))
     trends = pd.DataFrame(ll).T
     trends.columns = columns[1:]
     return trends
@@ -62,7 +62,7 @@ output = './data/trends.xls'
 semterm, columns = getSemesterTermFrequencyMatrixFrom(tweets, column)
 semterm = normalize(semterm)
 p = getPoisson(semterm)
-trends = generateTrends(p, columns, 5000)
+trends = generateTrends(p, columns, 350, 0.005)
 trends.to_excel(output)
 df=p
-(df.unstack().sort_values()[:1000]).to_excel('topbi.xls')
+(df.unstack().sort_values()[:1000]).to_excel('./data/topbi.xls')

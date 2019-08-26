@@ -92,6 +92,9 @@ config = ConfigParser(inline_comment_prefixes="#;", interpolation=ExtendedInterp
 config.read('config.ini')
 inputfile = config['Text Cleaning']['tokenized_file']
 output = config['General']['output_file']
+min_freq = config['General']['min_freq']
+max_freq = config['General']['max_freq']
+dict_size = config['General']['dict_size']
 writer = pd.ExcelWriter(output, engine='xlsxwriter')
 df= readData(inputfile)
 for column in ['Unigrams', 'Bigrams']:

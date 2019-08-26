@@ -1,31 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LaTeX Example: Project Report
-%
-% Source: http://www.howtotex.com
-%
-% Feel free to distribute this example, but please keep the referral
-% to howtotex.com
-% Date: March 2011 
-% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% How to use writeLaTeX: 
-%
-% You edit the source code here on the left, and the preview on the
-% right shows you the result within a few seconds.
-%
-% Bookmark this page and share the URL with your co-authors. They can
-% edit at the same time!
-%
-% You can upload figures, bibliographies, custom classes and
-% styles using the files menu.
-%
-% If you're new to LaTeX, the wikibook is a great place to start:
-% http://en.wikibooks.org/wiki/LaTeX
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Edit the title below to update the display in My Documents
-%\title{Project Report}
-%
+
 %%% Preamble
 \documentclass[paper=a4, fontsize=11pt]{scrartcl}
 \usepackage[T1]{fontenc}
@@ -36,7 +9,10 @@
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
 \usepackage[pdftex]{graphicx}	
 \usepackage{url}
-
+\usepackage[small,compact]{titlesec}
+\usepackage[margin=3cm
+%,showframe% <- only to show the page layout
+]{geometry}
 
 %%% Custom sectioning
 \usepackage{sectsty}
@@ -46,9 +22,9 @@
 %%% Custom headers/footers (fancyhdr package)
 \usepackage{fancyhdr}
 \pagestyle{fancyplain}
-\fancyhead{\sectiontitle}											% No page header
-\fancyfoot[L]{}											% Empty 
-\fancyfoot[C]{}											% Empty
+
+\fancyfoot[L]{IPEA - DISET}											% Empty
+\fancyfoot[C]{\projectname}											% Empty
 \fancyfoot[R]{\thepage}									% Pagenumbering
 \renewcommand{\headrulewidth}{0pt}			% Remove header underlines
 \renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
@@ -63,18 +39,18 @@
 
 %%% Maketitle metadata
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
-
+\newcommand{\projectname}{Indicador de Tecnologias Emergentes}
 \title{
 		%\vspace{-1in} 	
 		\usefont{OT1}{bch}{b}{n}
 		\normalfont \normalsize \textsc{IPEA - DISET} \\ [25pt]
 		\horrule{0.5pt} \\[0.4cm]
-		\huge Indicador de Tendência Tecnológica \\
+		\huge \projectname \\
 		\horrule{2pt} \\[0.5cm]
 }
 \author{
 		\normalfont 								\normalsize
-        Fred Guth\\[-3pt]		\normalsize
+        Fred Guth\footnote{consultor contratado.}\\[-3pt]		\normalsize
         \today
 }
 \date{}
@@ -83,71 +59,58 @@
 %%% Begin document
 \begin{document}
 \maketitle
-\section{Resumo}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus:
+\thispagestyle{empty}
+\section{Objetivo}
+Antecipar tecnologias emergentes com maior potencial de impacto é essencial para um bom planejamento de políticas públicas.  Usualmente, essa atividade é bastante qualitativa, se baseando no conhecimento de especialistas e na análise de patentes e artigos científicos. Entretanto, redes sociais passaram a expressar, em tempo real, a opinião de diferentes agentes econômicos, incluindo empresas, institutos de pesquisa e publicações de especializadas em tecnologias emergentes; tornando possível mensurar quantitativamente, pelo número de menções, o julgamento agregado dessa multidão de agentes do potencial de tecnologias (assumindo-se que os agentes mencionam mais as tecnologias em que mais vêem potencial).
 
-\section{Dados}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus:
-\begin{align} 
-	\begin{split}
-	(x+y)^3 	&= (x+y)^2(x+y)\\
-					&=(x^2+2xy+y^2)(x+y)\\
-					&=(x^3+2x^2y+xy^2) + (x^2y+2xy^2+y^3)\\
-					&=x^3+3x^2y+3xy^2+y^3
-	\end{split}					
-\end{align}
-Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies 
-
-\subsection{Heading on level 2 (subsection)}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
-\begin{align}
-	A = 
-	\begin{bmatrix}
-	A_{11} & A_{21} \\
-  	A_{21} & A_{22}
-	\end{bmatrix}
-\end{align}
-Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-
-\subsubsection{Heading on level 3 (subsubsection)}
-Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-
-\paragraph{Heading on level 4 (paragraph)}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
+Neste projeto, usamos processamento de linguagem natural para criar um indicador quantitativo para tecnologias emergentes mencionadas no Twitter por contas previamente selecionadas.
 
 \section{Metodologia}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus:
-\begin{align} 
-	\begin{split}
-	(x+y)^3 	&= (x+y)^2(x+y)\\
-					&=(x^2+2xy+y^2)(x+y)\\
-					&=(x^3+2x^2y+xy^2) + (x^2y+2xy^2+y^3)\\
-					&=x^3+3x^2y+3xy^2+y^3
-	\end{split}					
-\end{align}
-Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies 
+O processo de construção do \textbf{Indicador de Tecnologias Emergentes (ITE)} abrange as seguintes etapas:
+\begin{enumerate}
+	\item Captura dos tweets\footnote{A curadoria das contas e a captura dos \emph{tweets} foram realizadas previamente e fogem do escopo do presente projeto.}
+	\item Análise exploratória dos dados
+	\item Limpeza dos dados e definição dos tópicos
+	\item Construção da matriz de frequências Semestre-Tópico
+	\item Detecção estatística de anomalias
+	\item Geração do Indicador
+\end{enumerate}
+\subsection{Análise exploratória dos dados}
+A análise exploratória de dados (AED) é uma abordagem de análise de conjuntos de dados com objetivo de capturar um panorama geral com métodos visuais. No presente projeto, a AED não foi estensiva, até mesmo porque a maior variabilidade dos dados está no texto dos tweets o que não é capturado pela mesma. Entretanto, a AED foi importante para identificar potenciais problemas com diferentes abordagens estatísticas. Os resultados da AED serão apresentados na seção \ref{sec:dados}.
+\subsection{Limpeza dos dados e definição dos tópicos}
+\subsubsection{Limpeza}
+A limpeza dos dados tem como objetivo padronização e a remoção de termos anômalos indesejados na análise. Todas as ações de limpeza são opcionais e podem ser \emph{desligadas} a partir de um arquivo de configuração (ver \ref{sec:config}).
+\begin{itemize}
+	\item  remoção de acentos
+	\item  remoção de \emph{hashtags} e menções a contas do twitter: apesar de hashtags serem um sinal forte de importância no Twitter, achamos importante dar a opção de fazer a análise sem hashtags.
+	\item  remoção de URLs
+	\item  remoção de números: apenas palavras contendo apenas números, por exemplo "2017" é removido, enquanto "23andme" não é.
+\end{itemize}
+\subsubsection{Definição dos tópicos}
+Qualquer palavra usada em um \emph{tweet} do corpus é, inicialmente, considerada um tópico, uma vez que, a priori, não temos como saber que uma palavra se trata de tecnologia. Pior do que isso, como analisamos também bi-gramas, combinações de duas palavras, no limite o número de tópicos pode ser quadrático em relação ao tamanho do vocabulário do corpus.
 
-\subsection{Heading on level 2 (subsection)}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
-\begin{align}
-	A = 
-	\begin{bmatrix}
-	A_{11} & A_{21} \\
-  	A_{21} & A_{22}
-	\end{bmatrix}
-\end{align}
-Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+Tendo em vista que nosso corpus contém apenas mensagens curtas, o contexto em que termos tecnológicos aparecem não são muito identificáveis. Em outras palavras, queremos encontrar um pequeno sinal em um grande mar de ruído.
 
-\subsubsection{Heading on level 3 (subsubsection)}
-Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
+Um primeiro passo é, então, reduzir o tamanho do vocabulário considerado. Parte disso é feito pela própria limpeza, mas também filtramos \emph{stop words}, que são palavras comuns. Todas as principais bibliotecas de NLP possuem uma lista de \emph{stop words} do idioma inglês. Utilizamos a lista da biblioteca NLTK e adicionamos uma lista própria de \emph{stop words} que pode ser alterada no arquivo de configuração.
 
-\paragraph{Heading on level 4 (paragraph)}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
+
+
+
+consideramos que palavras devem ter um número mínimo de menções-dia\footnote{menção-dia é frequencia de menções em diferentes dias, ou seja, várias menções no mesmo dia contam como uma.} Além desses filtros, também estabelecemos um limite (\emph{dict_size}) no tamanho do dicionário, pegando apenas as \emph{dict_size} palavras com mais menções-dia.
+
+
+Essa característica do problema nos leva a focar primeiro em identificar anomalias em geral, que podem ou não ser tecnológicas, deixando o problema da categorização dos tópicos como secundário.
+
+
+\subsection{Matriz de frequências Semestre-Tópico}
+\subsection{Detecção estatística de anomalias}
+\subsection{Geração do Indicador}
+\section{Dados}\label{sec:dados}
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. 
+
+
 \section{Código}
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus:
-
-\section{Uso}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus:
 \begin{align} 
 	\begin{split}
 	(x+y)^3 	&= (x+y)^2(x+y)\\
@@ -175,6 +138,28 @@ Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, v
 \paragraph{Heading on level 4 (paragraph)}
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
 
-%%% End document
 
+\section{Produto}
+
+\subsection{Example for list (3*itemize)}
+\begin{itemize}
+	\item First item in a list 
+		\begin{itemize}
+		\item First item in a list 
+			\begin{itemize}
+			\item First item in a list 
+			\item Second item in a list 
+			\end{itemize}
+		\item Second item in a list 
+		\end{itemize}
+	\item Second item in a list 
+\end{itemize}
+
+\subsection{Example for list (enumerate)}
+\begin{enumerate}
+	\item First item in a list 
+	\item Second item in a list 
+	\item Third item in a list
+\end{enumerate}
+%%% End document
 \end{document}

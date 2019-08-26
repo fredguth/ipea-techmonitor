@@ -1,5 +1,6 @@
 # coding: utf-8
 import re
+import sys
 import numpy as np
 import pandas as pd
 import time
@@ -19,7 +20,8 @@ def setup():
 def flatNestedList(list_of_lists):
     return [val for sublist in list_of_lists for val in sublist]
 
-def getSemesterTermFrequencyMatrixFrom(dataframe, column='Unigrams', min_freq=5, max_freq=500, max_features=50000):
+def getSemesterTermFrequencyMatrixFrom(dataframe, column='Unigrams', min_freq=2, max_freq=500, max_features=100000):
+    print('Counting term frequency')
     df = pd.DataFrame(dataframe[column])
     df = df.resample('D',closed='left', label='left').apply(flatNestedList)
     cv = CountVectorizer(tokenizer=(lambda x: x), preprocessor=(lambda x: x), min_df=min_freq, max_df=max_freq)
@@ -34,9 +36,11 @@ def getSemesterTermFrequencyMatrixFrom(dataframe, column='Unigrams', min_freq=5,
     return semterm, columns
 
 def normalize(df):
+    print('Normalizing')
     return df.div(df.sum(axis=0), axis=1)*100000
 
 def getPoisson(df):
+    print ('Calculating poisson percentages')
     index = df.index
     columns = df.columns
     p = pd.DataFrame(poisson.cdf(k=df.loc[:,2:len(df.columns)],mu=df.loc[:,1:len(df.columns)-1]))
@@ -46,6 +50,7 @@ def getPoisson(df):
 
 
 def generateTrends(df, columns, size, threshold):
+    print('Creating xls file')
     ll=[]
     for c in df.columns:
         ll.append(np.array(df[df.loc[:,c] < threshold].sort_values(by=[c],ascending=True)[:size].loc[:,c].index))
@@ -53,16 +58,27 @@ def generateTrends(df, columns, size, threshold):
     trends.columns = columns[1:]
     return trends
 
+def readData(filename):
+    print('Reading data....')
+    start = time.time()
+    df = pd.read_pickle(filename)
+    end = time.time()
+    print(f'Read finished in {end-start:.2f} seconds.\n')
+    return df
 
+
+
+print('Generating Trends')
 setup()
-tweets = pd.read_pickle('./data/tokenized.data')
+datafile = './data/tokenized.data'
+tweets = readData(datafile)
 dataframe = tweets
 column = 'Bigrams'
 output = './data/trends.xls'
 semterm, columns = getSemesterTermFrequencyMatrixFrom(tweets, column)
 semterm = normalize(semterm)
 p = getPoisson(semterm)
-trends = generateTrends(p, columns, 350, 0.005)
+trends = generateTrends(p, columns, 1000, 0.05)
 trends.to_excel(output)
 df=p
 (df.unstack().sort_values()[:1000]).to_excel('./data/topbi.xls')

@@ -39,11 +39,28 @@ def normalize(df):
     print('Normalizing')
     return df.div(df.sum(axis=0), axis=1)*100000
 
-def getPoisson(df):
-    print ('Calculating poisson percentages')
+
+def getK(df, transform=None, past=3):
+    if transform == 'max':
+        table = np.zeros(shape=df.shape)
+        for i, (index, row) in tqdm(enumerate(df.iterrows())):
+            for j in range(len(df.columns)-1):
+                table[i, j] = max(row[:j+1])
+    if transform == 'mean':
+        table = np.zeros(shape=df.shape)
+        for i, (index, row) in tqdm(enumerate(df.iterrows())):
+            for j in range(len(df.columns)-1):
+                bound = max(0, j-past)
+                table[i, j] = row[bound:j+1].mean()
+        df = pd.DataFrame(table, index=df.index, columns=df.columns)
+    return df.loc[:, 1:len(df.columns)-1]
+
+
+def getPoisson(df, transform=None):
+    print('Calculating poisson percentages')
     index = df.index
     columns = df.columns
-    p = pd.DataFrame(poisson.cdf(k=df.loc[:,2:len(df.columns)],mu=df.loc[:,1:len(df.columns)-1]))
+    p = pd.DataFrame(poisson.cdf(k=getK(df, transform=transform), mu=df.loc[:, 2:len(df.columns)]))
     p.columns = columns[1:]
     p.index = index
     return p

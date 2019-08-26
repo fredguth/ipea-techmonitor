@@ -116,7 +116,7 @@ def clean_tokens(df):
     max = config['Text Cleaning'].getint('max_word_size') or 20
     df['Unigrams'] = df['Unigrams'].progress_apply(lambda x: remove_extremewords(x, min, max))
     tqdm.write('.... removing stop words')
-    ll = [stopwords.words('english')] + ["".join(string.split()).split(',') for string in [v for k, v in config.items('Stop Words')]]
+    ll = [stopwords.words('english') + list(punctuation)] + ["".join(string.split()).split(',') for string in [v for k, v in config.items('Stop Words')]]
     flat = [item for sublist in ll for item in sublist]
     stops = set(flat)
     df['Unigrams'] = df['Unigrams'].progress_apply(lambda x: remove_stopwords(input=x, stops=stops))

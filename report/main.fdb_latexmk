@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1566827061 "/Users/fredguth/Work/ipea/techtrends/report/main.tex" "/Users/fredguth/Work/ipea/techtrends/report/main.pdf" "main" 1566827062
-  "/Users/fredguth/Work/ipea/techtrends/report/main.aux" 1566827062 1249 e42ca6e7f6cd97a1fcd782089e4171a0 ""
-  "/Users/fredguth/Work/ipea/techtrends/report/main.tex" 1566827061 9051 fb6ec77d3cb96bd9ab4794d985b24c47 ""
+["pdflatex"] 1566829555 "/Users/fredguth/Work/ipea/techtrends/report/main.tex" "/Users/fredguth/Work/ipea/techtrends/report/main.pdf" "main" 1566829555
+  "/Users/fredguth/Work/ipea/techtrends/report/main.aux" 1566829555 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/Users/fredguth/Work/ipea/techtrends/report/main.tex" 1566829553 9588 338fba8fc2028701fc0eee41ddc53e4e ""
   "/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/bitstrea/charter/bchb7t.tfm" 1480098691 2732 006d846b4d54f9b40899c7c3eecd771a ""
@@ -108,11 +108,11 @@
   "/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1523934492 2717033 f61a5287d9c22a39a74f1979fe3f905c ""
   "/usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1550199088 4220280 5fcb9219a4e6e0769905c6cd9a032185 ""
   "/usr/local/texlive/2018/texmf.cnf" 1523934483 577 0b39adfd7c93507ff20c9c14c2f1a33f ""
-  "main.aux" 1566827062 1249 e42ca6e7f6cd97a1fcd782089e4171a0 ""
-  "main.tex" 1566827061 9051 fb6ec77d3cb96bd9ab4794d985b24c47 ""
+  "main.aux" 0 -1 0 ""
+  "main.tex" 1566829553 9588 338fba8fc2028701fc0eee41ddc53e4e ""
   (generated)
-  "/Users/fredguth/Work/ipea/techtrends/report/main.log"
   "main.pdf"
-  "main.log"
+  "/Users/fredguth/Work/ipea/techtrends/report/main.log"
   "/Users/fredguth/Work/ipea/techtrends/report/main.pdf"
   "main.aux"
+  "main.log"

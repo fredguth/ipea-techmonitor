@@ -30,7 +30,7 @@ def setup():
     print (f'Setup finished in {end-start:.2f} seconds.\n')
 
 def days_to_date(srl_no):
-    args = list(map(int, [number.strip() for number in config['General']['convert_date'].split(',')]))
+    args = list(map(int, [number.strip() for number in config['General']['first_date'].split(',')]))
     first = datetime.datetime(args[0], args[1], args[2])
     days = int(srl_no-1)
     new_date = first + datetime.timedelta(days)

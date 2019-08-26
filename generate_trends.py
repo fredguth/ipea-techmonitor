@@ -6,7 +6,7 @@ import pandas as pd
 import time
 from tqdm import tqdm
 from scipy.stats import poisson
-
+from configparser import ConfigParser, ExtendedInterpolation
 from sklearn.feature_extraction.text import TfidfVectorizer,CountVectorizer
 # Gensim
 import gensim
@@ -69,16 +69,22 @@ def readData(filename):
 
 
 print('Generating Trends')
+start = time.time()
 setup()
-datafile = './data/tokenized.data'
-tweets = readData(datafile)
-dataframe = tweets
-column = 'Bigrams'
-output = './data/trends.xls'
-semterm, columns = getSemesterTermFrequencyMatrixFrom(tweets, column)
-semterm = normalize(semterm)
-p = getPoisson(semterm)
-trends = generateTrends(p, columns, 1000, 0.05)
-trends.to_excel(output)
-df=p
-(df.unstack().sort_values()[:1000]).to_excel('./data/topbi.xls')
+config = ConfigParser(inline_comment_prefixes="#;", interpolation=ExtendedInterpolation())
+config.read('config.ini')
+inputfile = config['Text Cleaning']['tokenized_file']
+output = config['General']['output_file']
+writer = pd.ExcelWriter(output, engine='xlsxwriter')
+df= readData(inputfile)
+print(df.head())
+for column in ['Unigrams', 'Bigrams']:
+    semterm, columns = getSemesterTermFrequencyMatrixFrom(df, column)
+    print (columns)
+    # semterm = normalize(semterm)
+    # p = getPoisson(semterm)
+    # trends = generateTrends(p, columns, 1000, 0.05)
+    # df1.to_excel(writer, sheet_name='Sheet1')
+    # trends.to_excel(writer, sheet_name=column)
+end = time.time()
+print(f'Excel file generated in {end-start:.2f} seconds.\n')

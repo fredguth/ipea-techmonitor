@@ -3,6 +3,8 @@
 *.xls
 __pychache__
 .ipynb*
+Untitled.*
+./report/*
 
 .### OSX ###
 *.DS_Store

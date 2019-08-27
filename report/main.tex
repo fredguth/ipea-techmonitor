@@ -14,6 +14,9 @@
 \usepackage[margin=3cm]{geometry}
 % showframe% <- only to show the page layout
 \usepackage{natbib}
+\usepackage{dirtree}
+\usepackage{listings}
+\usepackage{color}
 %%% Custom sectioning
 \usepackage{sectsty}
 \allsectionsfont{\centering \normalfont\scshape}
@@ -95,68 +98,85 @@ Um primeiro passo é, então, reduzir o tamanho do vocabulário considerado. Par
 Também filtramos \emph{stop words}, que são palavras comuns. Todas as principais bibliotecas de NLP possuem uma lista de \emph{stop words} do idioma inglês. Utilizamos a lista da biblioteca NLTK \citep{nltk} e adicionamos uma lista própria de \emph{stop words} que pode ser alterada no arquivo de configuração. Tal lista foi criada especificamente para o desafio deste projeto e parte da constatação que mesmo contas especializadas engajam-se em assuntos da cultura e capturam o zeitgeist ao longo do tempo.
 
 \subsection{Matriz de frequências Semestre-Tópico}
+A matriz semestre-tópico é uma matriz que descreve a frequencia de palavras que ocorrem smestre a semestre. É como uma matriz document-term onde o documento é o conjunto agregado de \emph{tweets} de um sestre. 
+\begin{figure}[h]
+	\centering
+	\caption{Matriz de frequências Semestre-Tópico.}
+	\includegraphics[width=.8\columnwidth]{sem-term}
+	\label{fig:sem-term}
+\end{figure}
+Um dos problemas do nosso corpus que é possível verificar na Figura \ref{fig:volume-tweets}, o número de mensagens coletadas por semestre é bastante diverso e essa variação poderia afetar nosso modelo estatístico. Nesse contexto, é preciso normalizar a frequência pelo número de mensagens por semestre.
 \subsection{Detecção estatística de anomalias}
 \subsection{Geração do Indicador}
 \section{Dados}\label{sec:dados}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. 
 \begin{figure}[!h]
   \centering
   \begin{minipage}[t]{0.4\textwidth}
 		\caption{Tweets por fonte.}
-    \includegraphics[width=\textwidth]{from}
+		\includegraphics[width=\textwidth]{from}
+		\label{fig:from}
   \end{minipage}
   \hfill
   \begin{minipage}[t]{0.4\textwidth}
 		\caption{Tweets por dia.}
-    \includegraphics[width=\textwidth]{perDay}
+		\includegraphics[width=\textwidth]{perDay}
+		\label{fig:daily}
   \end{minipage}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[!h]
 	\centering
 	\caption{Tweets por período.}
 	\includegraphics[width=.8\columnwidth]{anual-semestral}
 	\label{fig:volume-tweets}
 \end{figure}
+Nosso corpus foi captado de uma seleção de contas no Tweeter notórias por cobrirem assuntos de tecnologia (ver figura \ref{fig:from}). Ao todo, foram coletadas 518.145 mensagens curtas entre janeiro de 2010 e 30 de junho de 2019, uma média entre 100 e 200 mensagens por dia (figura \ref{fig:daily}).
+Há uma grande variação de tweets/smestre no período, conforme é possível notar na figura \ref{fig:volume-tweets}.
 \section{Código}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus:
-
-Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies 
-
-\subsection{Heading on level 2 (subsection)}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
-\begin{align}
-\end{align}
-Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-
-\subsubsection{Heading on level 3 (subsubsection)}
-Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-
-\paragraph{Heading on level 4 (paragraph)}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
-
-
-\section{Produto}
-
-\subsection{Example for list (3*itemize)}
+\subsection{Acesso}
+O código é aberto e seu repositório está disponível online no Github\footnote{http://github.com/fredguth/ipea-techmonitor}.
+\subsection{Organização}
+Ao clonar o reposítório, o usuário se depara com a seguinte estrutura de arquivos:
+\dirtree{%
+.1 ipea-techmonitor.
+.2 /data.
+.3 twitter.csv.
+.2 /docs.
+.3 data\_preparation.ipynb.
+.3 generate\_trends.ipynb.
+.2 config.ini.
+.2 data\_preparation.py.
+.2 generate\_trends.py.
+.2 readme.md.
+.2 requirements.txt.
+.2 run.py.
+}
+\vspace{.7cm}
+No diretório raiz encontram-se:
 \begin{itemize}
-	\item First item in a list 
-		\begin{itemize}
-		\item First item in a list 
-			\begin{itemize}
-			\item First item in a list 
-			\item Second item in a list 
-			\end{itemize}
-		\item Second item in a list 
-		\end{itemize}
-	\item Second item in a list 
-\end{itemize}
+	\item \textbf{config.ini}:arquivo de configuração, onde o usuário pode alterar todos os parâmetros de execução.
+	\item \textbf{data\_preparation.py}: responsável pelo processo de limpeza dos dados, tokenização e geração de bigramas.
+	\item \textbf{generate\_trends.py}: responsável pela criação da matriz semestre-tópico, análise estátistica e geração do arquivo de saída Excel.
+	\item \textbf{readme.md}: instruções para instalação e uso do sistema.
+	\item \textbf{requirements.txt}: lista de dependências python do projeto. 
+	\item \textbf{run.py}: pequeno programa que apenas chama \textbf{data\_preparation.py} e \textbf{generate\_trends.py} em ordem.
+\end{itemize}	
+\subsection{Instalação e Uso}
 
-\subsection{Example for list (enumerate)}
-\begin{enumerate}
-	\item First item in a list 
-	\item Second item in a list 
-	\item Third item in a list
-\end{enumerate}
+\subsubsection{Instalação}
+A partir do terminal de linha de comando:
+\begin{lstlisting}[language=bash, frame=leftline, basicstyle=\footnotesize\ttfamily] 
+git clone https://github.com/fredguth/ipea-techmonitor
+pip install -r requirements.txt
+\end{lstlisting}
+
+\subsubsection{Uso}
+Verifique e altere os parâmetros da execução no arquivo texto \textbf{config.ini}
+\lstinputlisting[language=python, basicstyle=\footnotesize\ttfamily, lastline=24, caption={Arquivo de configuração config.ini}, frame=leftline]{../config.ini}
+Quando estiver satisfeito com os parâmetros, execute na linha de comando:
+\begin{lstlisting}[language=bash, frame=leftline,basicstyle=\footnotesize\ttfamily] 
+python run.py
+\end{lstlisting}
+
 \bibliography{references.bib}
 \bibliographystyle{chicago}
 %%% End document

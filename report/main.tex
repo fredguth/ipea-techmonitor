@@ -1,4 +1,3 @@
-
 %%% Preamble
 \documentclass[paper=a4, fontsize=11pt]{scrartcl}
 \usepackage[T1]{fontenc}
@@ -8,16 +7,16 @@
 \usepackage[protrusion=true,expansion=true]{microtype}	
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
 \usepackage[pdftex]{graphicx}	
+\usepackage{subcaption}
 \usepackage{url}
 \usepackage[small,compact]{titlesec}
-\usepackage[margin=3cm
-%,showframe% <- only to show the page layout
-]{geometry}
 
+\usepackage[margin=3cm]{geometry}
+% showframe% <- only to show the page layout
+\usepackage{natbib}
 %%% Custom sectioning
 \usepackage{sectsty}
 \allsectionsfont{\centering \normalfont\scshape}
-
 
 %%% Custom headers/footers (fancyhdr package)
 \usepackage{fancyhdr}
@@ -61,7 +60,7 @@
 \maketitle
 \thispagestyle{empty}
 \section{Objetivo}
-Antecipar tecnologias emergentes com maior potencial de impacto é essencial para um bom planejamento de políticas públicas.  Usualmente, essa atividade é bastante qualitativa, se baseando no conhecimento de especialistas e na análise de patentes e artigos científicos. Entretanto, redes sociais passaram a expressar, em tempo real, a opinião de diferentes agentes econômicos, incluindo empresas, institutos de pesquisa e publicações de especializadas em tecnologias emergentes; tornando possível mensurar quantitativamente, pelo número de menções, o julgamento agregado dessa multidão de agentes do potencial de tecnologias (assumindo-se que os agentes mencionam mais as tecnologias em que mais vêem potencial).
+Antecipar tecnologias emergentes com maior potencial de impacto é essencial para um bom planejamento de políticas públicas.  Usualmente, essa atividade é bastante qualitativa, se baseando no conhecimento de especialistas e na análise de patentes e artigos científicos. Entretanto, redes sociais passaram a expressar, em tempo real, a opinião de diferentes agentes econômicos, incluindo empresas, institutos de pesquisa e publicações de especializadas em tecnologias emergentes; tornando possível mensurar quantitativamente, pelo número de menções, o julgamento agregado dessa multidão de agentes  do potencial de tecnologias (assumindo-se que os agentes mencionam mais as tecnologias em que mais vêem potencial). É um fenômeno bem relatado \citep{surowiecki2004wisdom} que julgamentos agregados deste tipo produzem boas previsões.
 
 Neste projeto, usamos processamento de linguagem natural para criar um indicador quantitativo para tecnologias emergentes mencionadas no Twitter por contas previamente selecionadas.
 
@@ -76,7 +75,7 @@ O processo de construção do \textbf{Indicador de Tecnologias Emergentes (ITE)}
 	\item Geração do Indicador
 \end{enumerate}
 \subsection{Análise exploratória dos dados}
-A análise exploratória de dados (AED) é uma abordagem de análise de conjuntos de dados com objetivo de capturar um panorama geral com métodos visuais. No presente projeto, a AED não foi estensiva, até mesmo porque a maior variabilidade dos dados está no texto dos tweets o que não é capturado pela mesma. Entretanto, a AED foi importante para identificar potenciais problemas com diferentes abordagens estatísticas. Os resultados da AED serão apresentados na seção \ref{sec:dados}.
+A análise exploratória de dados (AED) é uma abordagem de análise com objetivo de capturar um panorama geral dos dados com métodos visuais. No presente projeto, a AED não foi estensiva, até mesmo porque a maior variabilidade dos dados está no texto dos tweets o que não é capturado pela mesma. Entretanto, a AED foi importante para identificar potenciais problemas com diferentes abordagens estatísticas. Os resultados da AED serão apresentados na seção \ref{sec:dados}.
 \subsection{Limpeza dos dados e definição dos tópicos}
 \subsubsection{Limpeza}
 A limpeza dos dados tem como objetivo padronização e a remoção de termos anômalos indesejados na análise. Todas as ações de limpeza são opcionais e podem ser \emph{desligadas} a partir de um arquivo de configuração (ver \ref{sec:config}).
@@ -89,46 +88,43 @@ A limpeza dos dados tem como objetivo padronização e a remoção de termos an�
 \subsubsection{Definição dos tópicos}
 Qualquer palavra usada em um \emph{tweet} do corpus é, inicialmente, considerada um tópico, uma vez que, a priori, não temos como saber que uma palavra se trata de tecnologia. Pior do que isso, como analisamos também bi-gramas, combinações de duas palavras, no limite o número de tópicos pode ser quadrático em relação ao tamanho do vocabulário do corpus.
 
-Tendo em vista que nosso corpus contém apenas mensagens curtas, o contexto em que termos tecnológicos aparecem não são muito identificáveis. Em outras palavras, queremos encontrar um pequeno sinal em um grande mar de ruído.
+Tendo em vista que nosso corpus contém apenas mensagens curtas, o contexto em que termos tecnológicos aparecem não são muito identificáveis. Em outras palavras, queremos encontrar um pequeno sinal em um grande mar de ruído. Essa característica do problema nos leva a focar primeiro em identificar anomalias em geral, que podem ou não ser tecnológicas, deixando o problema da categorização dos tópicos como secundário.
 
-Um primeiro passo é, então, reduzir o tamanho do vocabulário considerado. Parte disso é feito pela própria limpeza, mas também filtramos \emph{stop words}, que são palavras comuns. Todas as principais bibliotecas de NLP possuem uma lista de \emph{stop words} do idioma inglês. Utilizamos a lista da biblioteca NLTK e adicionamos uma lista própria de \emph{stop words} que pode ser alterada no arquivo de configuração.
+Um primeiro passo é, então, reduzir o tamanho do vocabulário considerado. Parte disso é feito pela própria limpeza, mas consideramos também que palavras devem ter um número mínimo de menções-dia\footnote{menção-dia é frequencia de menções em diferentes dias, ou seja, várias menções no mesmo dia contam como uma.}. Além desses filtros, também estabelecemos um limite (\emph{dict\_size}) no tamanho do dicionário, pegando apenas as \emph{dict\_size} palavras com mais menções-dia no corpus.
 
-
-
-
-consideramos que palavras devem ter um número mínimo de menções-dia\footnote{menção-dia é frequencia de menções em diferentes dias, ou seja, várias menções no mesmo dia contam como uma.} Além desses filtros, também estabelecemos um limite (\emph{dict_size}) no tamanho do dicionário, pegando apenas as \emph{dict_size} palavras com mais menções-dia.
-
-
-Essa característica do problema nos leva a focar primeiro em identificar anomalias em geral, que podem ou não ser tecnológicas, deixando o problema da categorização dos tópicos como secundário.
-
+Também filtramos \emph{stop words}, que são palavras comuns. Todas as principais bibliotecas de NLP possuem uma lista de \emph{stop words} do idioma inglês. Utilizamos a lista da biblioteca NLTK \citep{nltk} e adicionamos uma lista própria de \emph{stop words} que pode ser alterada no arquivo de configuração. Tal lista foi criada especificamente para o desafio deste projeto e parte da constatação que mesmo contas especializadas engajam-se em assuntos da cultura e capturam o zeitgeist ao longo do tempo.
 
 \subsection{Matriz de frequências Semestre-Tópico}
 \subsection{Detecção estatística de anomalias}
 \subsection{Geração do Indicador}
 \section{Dados}\label{sec:dados}
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. 
-
-
+\begin{figure}[!h]
+  \centering
+  \begin{minipage}[t]{0.4\textwidth}
+		\caption{Tweets por fonte.}
+    \includegraphics[width=\textwidth]{from}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.4\textwidth}
+		\caption{Tweets por dia.}
+    \includegraphics[width=\textwidth]{perDay}
+  \end{minipage}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\caption{Tweets por período.}
+	\includegraphics[width=.8\columnwidth]{anual-semestral}
+	\label{fig:volume-tweets}
+\end{figure}
 \section{Código}
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus:
-\begin{align} 
-	\begin{split}
-	(x+y)^3 	&= (x+y)^2(x+y)\\
-					&=(x^2+2xy+y^2)(x+y)\\
-					&=(x^3+2x^2y+xy^2) + (x^2y+2xy^2+y^3)\\
-					&=x^3+3x^2y+3xy^2+y^3
-	\end{split}					
-\end{align}
+
 Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies 
 
 \subsection{Heading on level 2 (subsection)}
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
 \begin{align}
-	A = 
-	\begin{bmatrix}
-	A_{11} & A_{21} \\
-  	A_{21} & A_{22}
-	\end{bmatrix}
 \end{align}
 Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
 
@@ -161,5 +157,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula 
 	\item Second item in a list 
 	\item Third item in a list
 \end{enumerate}
+\bibliography{references.bib}
+\bibliographystyle{chicago}
 %%% End document
 \end{document}

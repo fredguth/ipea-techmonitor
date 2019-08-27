@@ -1,0 +1,16 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Loper and Bird}{Loper and Bird}{2002}]{nltk}
+Loper, E. and S.~Bird (2002).
+\newblock Nltk: The natural language toolkit.
+\newblock In {\em In Proceedings of the ACL Workshop on Effective Tools and
+  Methodologies for Teaching Natural Language Processing and Computational
+  Linguistics. Philadelphia: Association for Computational Linguistics}.
+
+\bibitem[\protect\citeauthoryear{Surowiecki}{Surowiecki}{2004}]{surowiecki2004wisdom}
+Surowiecki, J. (2004).
+\newblock The wisdom of crowds: Why the many are smarter than the few and how
+  collective wisdom shapes business.
+\newblock {\em Economies, Societies and Nations\/}~{\em 296}.
+
+\end{thebibliography}

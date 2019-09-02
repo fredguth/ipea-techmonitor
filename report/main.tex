@@ -63,7 +63,7 @@
 \maketitle
 \thispagestyle{empty}
 \section{Objetivo}
-Antecipar tecnologias emergentes com maior potencial de impacto é essencial para um bom planejamento de políticas públicas.  Usualmente, essa atividade é bastante qualitativa, se baseando no conhecimento de especialistas e na análise de patentes e artigos científicos. Entretanto, redes sociais passaram a expressar, em tempo real, a opinião de diferentes agentes econômicos, incluindo empresas, institutos de pesquisa e publicações de especializadas em tecnologias emergentes; tornando possível mensurar quantitativamente, pelo número de menções, o julgamento agregado dessa multidão de agentes  do potencial de tecnologias (assumindo-se que os agentes mencionam mais as tecnologias em que mais vêem potencial). É um fenômeno bem relatado \citep{surowiecki2004wisdom} que julgamentos agregados deste tipo produzem boas previsões.
+Antecipar tecnologias emergentes com maior potencial de impacto é essencial para um bom planejamento de políticas públicas.  Usualmente, essa atividade é bastante qualitativa, se baseando no conhecimento de especialistas e na análise de patentes e artigos científicos. Entretanto, redes sociais passaram a expressar, em tempo real, a opinião de diferentes agentes econômicos, incluindo empresas, institutos de pesquisa e publicações especializadas em tecnologias emergentes; tornando possível mensurar quantitativamente, pelo número de menções, o julgamento agregado dessa multidão de agentes  do potencial de tecnologias (assumindo-se que os agentes mencionam mais as tecnologias em que mais vêem potencial). É um fenômeno bem relatado \citep{surowiecki2004wisdom} que julgamentos agregados deste tipo produzem boas previsões.
 
 Neste projeto, usamos processamento de linguagem natural para criar um indicador quantitativo para tecnologias emergentes mencionadas no Twitter por contas previamente selecionadas.
 
@@ -81,32 +81,43 @@ O processo de construção do \textbf{Indicador de Tecnologias Emergentes (ITE)}
 A análise exploratória de dados (AED) é uma abordagem de análise com objetivo de capturar um panorama geral dos dados com métodos visuais. No presente projeto, a AED não foi estensiva, até mesmo porque a maior variabilidade dos dados está no texto dos tweets o que não é capturado pela mesma. Entretanto, a AED foi importante para identificar potenciais problemas com diferentes abordagens estatísticas. Os resultados da AED serão apresentados na seção \ref{sec:dados}.
 \subsection{Limpeza dos dados e definição dos tópicos}
 \subsubsection{Limpeza}
-A limpeza dos dados tem como objetivo padronização e a remoção de termos anômalos indesejados na análise. Todas as ações de limpeza são opcionais e podem ser \emph{desligadas} a partir de um arquivo de configuração (ver \ref{sec:config}).
+A limpeza dos dados tem como objetivo padronização e a remoção de termos anômalos indesejados na análise. Todas as ações de limpeza são opcionais e podem ser \emph{desligadas} a partir de um arquivo de configuração (ver \ref{config.ini}).
 \begin{itemize}
 	\item  remoção de acentos
 	\item  remoção de \emph{hashtags} e menções a contas do twitter: apesar de hashtags serem um sinal forte de importância no Twitter, achamos importante dar a opção de fazer a análise sem hashtags.
 	\item  remoção de URLs
-	\item  remoção de números: apenas palavras contendo apenas números, por exemplo "2017" é removido, enquanto "23andme" não é.
+	\item  remoção de números: palavras contendo apenas números, por exemplo "2017" é removido, enquanto "23andme" não é.
 \end{itemize}
 \subsubsection{Definição dos tópicos}
-Qualquer palavra usada em um \emph{tweet} do corpus é, inicialmente, considerada um tópico, uma vez que, a priori, não temos como saber que uma palavra se trata de tecnologia. Pior do que isso, como analisamos também bi-gramas, combinações de duas palavras, no limite o número de tópicos pode ser quadrático em relação ao tamanho do vocabulário do corpus.
+Qualquer palavra usada em um \emph{tweet} do corpus é, inicialmente, considerada um tópico, uma vez que, a priori, não temos como saber que uma palavra está no contexto de tecnologia. Pior do que isso, além dos termos individuais, \textbf{uni-gramas}, como analisamos também \textbf{bi-gramas}, combinações de duas palavras. No limite o número de tópicos pode ser quadrático em relação ao tamanho do vocabulário do corpus.
 
 Tendo em vista que nosso corpus contém apenas mensagens curtas, o contexto em que termos tecnológicos aparecem não são muito identificáveis. Em outras palavras, queremos encontrar um pequeno sinal em um grande mar de ruído. Essa característica do problema nos leva a focar primeiro em identificar anomalias em geral, que podem ou não ser tecnológicas, deixando o problema da categorização dos tópicos como secundário.
 
 Um primeiro passo é, então, reduzir o tamanho do vocabulário considerado. Parte disso é feito pela própria limpeza, mas consideramos também que palavras devem ter um número mínimo de menções-dia\footnote{menção-dia é frequencia de menções em diferentes dias, ou seja, várias menções no mesmo dia contam como uma.}. Além desses filtros, também estabelecemos um limite (\emph{dict\_size}) no tamanho do dicionário, pegando apenas as \emph{dict\_size} palavras com mais menções-dia no corpus.
 
-Também filtramos \emph{stop words}, que são palavras comuns. Todas as principais bibliotecas de NLP possuem uma lista de \emph{stop words} do idioma inglês. Utilizamos a lista da biblioteca NLTK \citep{nltk} e adicionamos uma lista própria de \emph{stop words} que pode ser alterada no arquivo de configuração. Tal lista foi criada especificamente para o desafio deste projeto e parte da constatação que mesmo contas especializadas engajam-se em assuntos da cultura e capturam o zeitgeist ao longo do tempo.
+Também filtramos \emph{stop words}, que são palavras comuns. Todas as principais bibliotecas de NLP possuem uma lista de \emph{stop words} do idioma inglês. Utilizamos a lista da biblioteca NLTK \citep{nltk} e adicionamos uma lista própria de \emph{stop words} que pode ser alterada no arquivo de configuração (\S \ref{config.ini}). Tal lista foi criada especificamente para o desafio deste projeto e parte da constatação que mesmo contas especializadas engajam-se em assuntos da cultura e capturam o zeitgeist ao longo do tempo.
 
 \subsection{Matriz de frequências Semestre-Tópico}
-A matriz semestre-tópico é uma matriz que descreve a frequencia de palavras que ocorrem smestre a semestre. É como uma matriz document-term onde o documento é o conjunto agregado de \emph{tweets} de um sestre. 
 \begin{figure}[h]
 	\centering
 	\caption{Matriz de frequências Semestre-Tópico.}
 	\includegraphics[width=.8\columnwidth]{sem-term}
 	\label{fig:sem-term}
 \end{figure}
-Um dos problemas do nosso corpus que é possível verificar na Figura \ref{fig:volume-tweets}, o número de mensagens coletadas por semestre é bastante diverso e essa variação poderia afetar nosso modelo estatístico. Nesse contexto, é preciso normalizar a frequência pelo número de mensagens por semestre.
+
+A matriz semestre-tópico é uma matriz que descreve a frequencia de palavras que ocorrem semestre a semestre. É como uma matriz \emph{document-term} onde o documento é o conjunto agregado de \emph{tweets} de um semestre. 
+Um dos problemas do nosso corpus que é possível verificar na Figura \ref{fig:volume-tweets}, é que o número de mensagens coletadas por semestre é bastante diverso e essa variação poderia afetar nosso modelo estatístico. Nesse contexto, é preciso normalizar a frequência pelo número de mensagens por semestre.
 \subsection{Detecção estatística de anomalias}
+Neste trabalho, ossa principal ferramenta para detecção de anomalias é a distribuição de Poisson, que expressa a probabilidade de uma série de eventos ocorrer em um período, dado que um evento em qualquer intervalo independe da probabilidade dele acontecer em qualquer outro intervalo.
+
+No nosso caso, os eventos não são exatamente independentes, porque quando uma determinada conta no \emph{Twitter} com autoridade começa a abordar um tópico, desperta o interesse de outras contas. Mas esse é justamente o caso que queremos identificar, ou seja, nossas anomalias são casos em que a distribuição de Poisson não explica a distribuição de tópicos no \emph{Twitter} que observamos.
+
+Seja o momento inicial das observações $t=0$ e $N(t)$ o número de eventos que ocorrem até uma certa data $t$, um processo estocástico de Poisson pode ser descrito como:
+\begin{align}
+	P[N(t)=K]=\frac{e^{-\lambda t} (\lambda t )^k}{k!},\,\! \label{poisson}
+\end{align}
+onde $\lambda$ representa o número de eventos por período esperado (a "velocidade"  do período anterior no nosso caso).
+Em nossos experimentos, os primeiros 1000 uni-gramas apresentaram probabilidade de ocorrência segundo (\ref{poisson}) inferior a 0.15\% e no caso de bigramas, inferior a 0.03\%.
 \subsection{Geração do Indicador}
 \section{Dados}\label{sec:dados}
 \begin{figure}[!h]
@@ -129,7 +140,7 @@ Um dos problemas do nosso corpus que é possível verificar na Figura \ref{fig:v
 	\includegraphics[width=.8\columnwidth]{anual-semestral}
 	\label{fig:volume-tweets}
 \end{figure}
-Nosso corpus foi captado de uma seleção de contas no Tweeter notórias por cobrirem assuntos de tecnologia (ver figura \ref{fig:from}). Ao todo, foram coletadas 518.145 mensagens curtas entre janeiro de 2010 e 30 de junho de 2019, uma média entre 100 e 200 mensagens por dia (figura \ref{fig:daily}).
+Nosso corpus foi captado de uma seleção de contas no \emph{Twitter} notórias por cobrirem assuntos de tecnologia (ver figura \ref{fig:from}). Ao todo, foram coletadas 518.145 mensagens curtas entre janeiro de 2010 e 30 de junho de 2019, uma média entre 100 e 200 mensagens por dia (figura \ref{fig:daily}).
 Há uma grande variação de tweets/smestre no período, conforme é possível notar na figura \ref{fig:volume-tweets}.
 \section{Código}
 \subsection{Acesso}
@@ -170,7 +181,7 @@ pip install -r requirements.txt
 \end{lstlisting}
 
 \subsubsection{Uso}
-Verifique e altere os parâmetros da execução no arquivo texto \textbf{config.ini}
+Verifique e altere os parâmetros da execução no arquivo texto \textbf{config.ini}\label{config.ini}
 \lstinputlisting[language=python, basicstyle=\footnotesize\ttfamily, lastline=24, caption={Arquivo de configuração config.ini}, frame=leftline]{../config.ini}
 Quando estiver satisfeito com os parâmetros, execute na linha de comando:
 \begin{lstlisting}[language=bash, frame=leftline,basicstyle=\footnotesize\ttfamily] 

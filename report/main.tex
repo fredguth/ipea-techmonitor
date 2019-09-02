@@ -69,6 +69,7 @@ Neste projeto, usamos processamento de linguagem natural para criar um indicador
 
 \section{Metodologia}
 O processo de construção do \textbf{Indicador de Tecnologias Emergentes (ITE)} abrange as seguintes etapas:
+
 \begin{enumerate}
 	\item Captura dos tweets\footnote{A curadoria das contas e a captura dos \emph{tweets} foram realizadas previamente e fogem do escopo do presente projeto.}
 	\item Análise exploratória dos dados
@@ -179,7 +180,7 @@ No diretório raiz encontram-se:
 	\item \textbf{generate\_trends.py}: responsável pela criação da matriz semestre-tópico, análise estátistica e geração do arquivo de saída Excel.
 	\item \textbf{readme.md}: instruções para instalação e uso do sistema.
 	\item \textbf{requirements.txt}: lista de dependências python do projeto. 
-	\item \textbf{run.py}: pequeno programa que apenas chama \textbf{data\_preparation.py} e \textbf{generate\_trends.py} em ordem.
+
 \end{itemize}	
 \subsection{Instalação e Uso}
 
@@ -195,7 +196,7 @@ Verifique e altere os parâmetros da execução no arquivo texto \textbf{config.
 \lstinputlisting[language=python, basicstyle=\footnotesize\ttfamily, lastline=24, caption={Arquivo de configuração config.ini}, frame=leftline]{../config.ini}
 Quando estiver satisfeito com os parâmetros, execute na linha de comando:
 \begin{lstlisting}[language=bash, frame=leftline,basicstyle=\footnotesize\ttfamily] 
-python run.py
+python data_preparation.py && python generate_trends.py
 \end{lstlisting}
 
 \bibliography{references.bib}

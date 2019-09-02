@@ -126,7 +126,7 @@ def clean_tokens(df):
     tqdm.write (f'Tokens cleanup finished in {end-start:.2f} seconds.\n')
     return df
 
-#main
+
 start = time.time()
 setup()
 config = ConfigParser(

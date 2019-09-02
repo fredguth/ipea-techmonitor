@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex main"] 1567424253 "main.aux" "main.bbl" "main" 1567424626
+["bibtex main"] 1567424660 "main.aux" "main.bbl" "main" 1567424662
   "/usr/local/texlive/2018/texmf-dist/bibtex/bst/chicago/chicago.bst" 1480098434 37416 2ae04276c51f11eda70770f4081293b7 ""
-  "main.aux" 1567424626 2723 1d79c23d32024bf1b236912cd9d2b8ba ""
+  "main.aux" 1567424662 2723 27157f199b2f1f31ee7c5b96951a9a45 ""
   "references.bib" 1566856226 640 4f1306654f1efe318b06dd6c1aa0f07b ""
   (generated)
   "main.blg"
   "main.bbl"
-["pdflatex"] 1567424624 "/Users/fredguth/Work/ipea/techtrends/report/main.tex" "/Users/fredguth/Work/ipea/techtrends/report/main.pdf" "main" 1567424626
+["pdflatex"] 1567424660 "/Users/fredguth/Work/ipea/techtrends/report/main.tex" "/Users/fredguth/Work/ipea/techtrends/report/main.pdf" "main" 1567424662
   "../config.ini" 1566855168 7624 82319b4705efa2b2643b33ae82db85c7 ""
-  "/Users/fredguth/Work/ipea/techtrends/report/main.aux" 1567424626 2723 1d79c23d32024bf1b236912cd9d2b8ba ""
-  "/Users/fredguth/Work/ipea/techtrends/report/main.tex" 1567424624 11869 8f3dfe9c2af6747972a93b8912a8757c ""
+  "/Users/fredguth/Work/ipea/techtrends/report/main.aux" 1567424662 2723 27157f199b2f1f31ee7c5b96951a9a45 ""
+  "/Users/fredguth/Work/ipea/techtrends/report/main.tex" 1567424657 12565 51610bd0ed6fb9f689b173089b575a6d ""
   "/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1480098666 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
@@ -158,14 +158,18 @@
   "/usr/local/texlive/2018/texmf.cnf" 1523934483 577 0b39adfd7c93507ff20c9c14c2f1a33f ""
   "anual-semestral.png" 1566875242 89257 c6416cc533c35ce7c1e5bd12355d9ebe ""
   "from.png" 1566870678 80733 7eac923a2f38f20b04fdb0572fd00446 ""
-  "main.aux" 1567424626 2723 1d79c23d32024bf1b236912cd9d2b8ba ""
-  "main.bbl" 1567424253 715 9fc0d5a53ca8711c8f149b5490d226ed "bibtex main"
-  "main.tex" 1567424624 11869 8f3dfe9c2af6747972a93b8912a8757c ""
+  "main.aux" 1567424662 2723 27157f199b2f1f31ee7c5b96951a9a45 ""
+  "main.bbl" 1567424660 715 9fc0d5a53ca8711c8f149b5490d226ed "bibtex main"
+  "main.tex" 1567424657 12565 51610bd0ed6fb9f689b173089b575a6d ""
   "perDay.png" 1566871949 59966 31cb387048664f9faa988977a9fee951 ""
   "sem-term.png" 1566927487 40519 d0ca53ec0d8038df38ce5fe5e0c959b3 ""
   (generated)
+  "main.tex"
+  "main.log"
+  "sem-term.png"
+  "/Users/fredguth/Work/ipea/techtrends/report/main.pdf"
+  "main.bbl"
+  "main.aux"
+  "perDay.png"
   "/Users/fredguth/Work/ipea/techtrends/report/main.log"
   "main.pdf"
-  "main.aux"
-  "/Users/fredguth/Work/ipea/techtrends/report/main.pdf"
-  "main.log"

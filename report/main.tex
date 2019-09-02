@@ -110,15 +110,23 @@ Um dos problemas do nosso corpus que é possível verificar na Figura \ref{fig:v
 \subsection{Detecção estatística de anomalias}
 Neste trabalho, ossa principal ferramenta para detecção de anomalias é a distribuição de Poisson, que expressa a probabilidade de uma série de eventos ocorrer em um período, dado que um evento em qualquer intervalo independe da probabilidade dele acontecer em qualquer outro intervalo.
 
+<<<<<<< HEAD
 No nosso caso, os eventos não são exatamente independentes, porque quando uma determinada conta no \emph{Twitter} com autoridade começa a abordar um tópico, desperta o interesse de outras contas. Mas esse é justamente o caso que queremos identificar, ou seja, nossas anomalias são casos em que a distribuição de Poisson não explica a distribuição de tópicos no \emph{Twitter} que observamos.
+=======
+No nosso caso, os eventos não são exatamente indenpendentes, porque quando uma determinada conta com autoridade começa a abordar um tópico, desperta o interesse de outras contas. Mas esse é justamente o caso que queremos identificar, ou seja, nossas anomalias são casos em que a distribuição de Poisson não explica a distribuição de tópicos no Tweeter que observamos.
+>>>>>>> e27d38cbc9b0c1fd5a2b88c32219aeffbd14ca7f
 
 Seja o momento inicial das observações $t=0$ e $N(t)$ o número de eventos que ocorrem até uma certa data $t$, um processo estocástico de Poisson pode ser descrito como:
 \begin{align}
 	P[N(t)=K]=\frac{e^{-\lambda t} (\lambda t )^k}{k!},\,\! \label{poisson}
 \end{align}
 onde $\lambda$ representa o número de eventos por período esperado (a "velocidade"  do período anterior no nosso caso).
+<<<<<<< HEAD
 Em nossos experimentos, os primeiros 1000 uni-gramas apresentaram probabilidade de ocorrência segundo (\ref{poisson}) inferior a 0.15\% e no caso de bigramas, inferior a 0.03\%.
 
+=======
+Em nossos experimentos, os primeiros 1000 unigramas apresentaram probabilidade de ocorrência segundo \ref{poisson} inferior a 0.15\% e no caso de bigramas, inferior a 0.03\%.
+>>>>>>> e27d38cbc9b0c1fd5a2b88c32219aeffbd14ca7f
 \subsection{Geração do Indicador}
 
 \section{Dados}\label{sec:dados}

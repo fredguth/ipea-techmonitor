@@ -313,9 +313,6 @@ INPUT /Users/fredguth/Work/ipea/techtrends/report/from.png
 INPUT /Users/fredguth/Work/ipea/techtrends/report/perDay.png
 INPUT /Users/fredguth/Work/ipea/techtrends/report/perDay.png
 INPUT /Users/fredguth/Work/ipea/techtrends/report/perDay.png
-INPUT /Users/fredguth/Work/ipea/techtrends/report/anual-semestral.png
-INPUT /Users/fredguth/Work/ipea/techtrends/report/anual-semestral.png
-INPUT /Users/fredguth/Work/ipea/techtrends/report/anual-semestral.png
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/vf/public/fourier/futmii.vf
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/fourier/fourier-mlit.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/fourier/fourier-ml.tfm
@@ -329,6 +326,9 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/vf/public/fourier/futmii.vf
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/fourier/fourier-mlit.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/fourier/fourier-ml.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/fourier/futri8r.tfm
+INPUT /Users/fredguth/Work/ipea/techtrends/report/anual-semestral.png
+INPUT /Users/fredguth/Work/ipea/techtrends/report/anual-semestral.png
+INPUT /Users/fredguth/Work/ipea/techtrends/report/anual-semestral.png
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/jknappen/ec/ectt1095.tfm

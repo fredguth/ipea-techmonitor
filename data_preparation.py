@@ -45,20 +45,23 @@ def read_data(filename):
     if config.getboolean('General', 'convert_date'):
         tweets['Days'] = tweets['Days'].progress_apply(days_to_date)
     tweets.columns=['Date', 'From', 'Tweet']
+    tweets['From']= tweets['From'].apply(lambda x: x.lower())
     tweets = tweets[~tweets['From']
         .isin(
             [source.strip().lower()
                 for source in 
                     config['General']['exclude_sources'].split(",")])]
-    tweets = tweets.reset_index()
-    tweets = tweets.set_index('Date').sort_index()
+    tweets = tweets.set_index('Date', drop=True).sort_index()
     end = time.time()
     print (f'Data read in {end-start:.2f} seconds.\n')
     return tweets
 
 
+def lower_case(text):
+    return str(text).lower()
+    
 def remove_accents(text):
-    text = unicodedata.normalize('NFD', str(text)).encode('ascii', 'ignore').decode("utf-8").lower()
+    text = unicodedata.normalize('NFD', str(text)).encode('ascii', 'ignore').decode("utf-8")
     return str(text)
 
 def remove_apostrophes(text):
@@ -77,7 +80,6 @@ def remove_numberwords(text):
     text= re.sub(r'\b[0-9]+\b\s*', '', text)
     return text
 
-
 def clean_text(df, text_column):
     tqdm.write(f'Cleaning up {text_column} texts...')
     start = time.time()
@@ -89,7 +91,6 @@ def clean_text(df, text_column):
     tqdm.write(f'Text cleanup finished in {end-start:.2f} seconds.\n')
     return df
 
-
 def tokenize(df, text_column):
     print(f'Tokenizing Dataframe["{text_column}"].')
     start = time.time()
@@ -97,7 +98,6 @@ def tokenize(df, text_column):
     end = time.time()
     print(f'Dataframe["{text_column}"] tokenized in {end-start:.2f} seconds.\n')
     return df
-
 
 def remove_stopwords(input, stops):
     output = [i for i in input if i not in stops]

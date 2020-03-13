@@ -7,7 +7,7 @@ import time
 from tqdm import tqdm
 from scipy.stats import poisson
 from configparser import ConfigParser, ExtendedInterpolation
-from sklearn.feature_extraction.text import TfidfVectorizer,CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 # Gensim
 import gensim
 import gensim.corpora as corpora
@@ -17,50 +17,53 @@ import gensim.models as models
 def setup():
     tqdm.pandas()
 
+
 def flatNestedList(list_of_lists):
     return [val for sublist in list_of_lists for val in sublist]
+
 
 def getSemesterTermFrequencyMatrixFrom(dataframe, column='Unigrams', min_freq=2, max_freq=500, max_features=100000):
     print('Counting term frequency')
     df = pd.DataFrame(dataframe[column])
-    df = df.resample('D',closed='left', label='left').apply(flatNestedList)
+    df = df.resample('D', closed='left', label='left').apply(flatNestedList)
     cv = CountVectorizer(tokenizer=(lambda x: x), preprocessor=(lambda x: x), min_df=min_freq, max_df=max_freq)
     table = cv.fit_transform(df[column])
-    docterm=pd.DataFrame(table.todense())
+    docterm = pd.DataFrame(table.todense())
     docterm.index = df.index
-    semterm = docterm.resample('2QS',closed='left', label='left').sum()
+    semterm = docterm.resample('2QS', closed='left', label='left').sum()
     semterm.columns = cv.get_feature_names()
-    semterm=semterm.T
+    semterm = semterm.T
     columns = semterm.columns.strftime(date_format='%Y-%b')
-    semterm.columns = np.arange(1,len(semterm.columns)+1).astype(int)
+    semterm.columns = np.arange(1, len(semterm.columns)+1).astype(int)
     return semterm, columns
+
 
 def normalize(df):
     print('Normalizing')
     return df.div(df.sum(axis=0), axis=1)*100000
 
 
-def getK(df, transform=None, past=3):
-    if transform == 'max':
-        table = np.zeros(shape=df.shape)
-        for i, (index, row) in tqdm(enumerate(df.iterrows())):
-            for j in range(len(df.columns)-1):
-                table[i, j] = max(row[:j+1])
-    if transform == 'mean':
-        table = np.zeros(shape=df.shape)
-        for i, (index, row) in tqdm(enumerate(df.iterrows())):
-            for j in range(len(df.columns)-1):
-                bound = max(0, j-past)
-                table[i, j] = row[bound:j+1].mean()
-        df = pd.DataFrame(table, index=df.index, columns=df.columns)
-    return df.loc[:, 1:len(df.columns)-1]
+# def getK(df, transform=None, past=3):
+#     if transform == 'max':
+#         table = np.zeros(shape=df.shape)
+#         for i, (index, row) in tqdm(enumerate(df.iterrows())):
+#             for j in range(len(df.columns)-1):
+#                 table[i, j] = max(row[:j+1])
+#     if transform == 'mean':
+#         table = np.zeros(shape=df.shape)
+#         for i, (index, row) in tqdm(enumerate(df.iterrows())):
+#             for j in range(len(df.columns)-1):
+#                 bound = max(0, j-past)
+#                 table[i, j] = row[bound:j+1].mean()
+#         df = pd.DataFrame(table, index=df.index, columns=df.columns)
+#     return df.loc[:, 1:len(df.columns)-1]
 
 
 def getPoisson(df, transform=None):
     print('Calculating poisson percentages')
     index = df.index
     columns = df.columns
-    p = pd.DataFrame(poisson.cdf(k=getK(df, transform=transform), mu=df.loc[:, 2:len(df.columns)]))
+    p = pd.DataFrame(poisson.cdf(k=df.loc[:, 1:len(df.columns)-1], mu=df.loc[:, 2:len(df.columns)]))
     p.columns = columns[1:]
     p.index = index
     return p
@@ -68,12 +71,13 @@ def getPoisson(df, transform=None):
 
 def generateTrends(df, columns, size, threshold):
     print('Creating xls file')
-    ll=[]
+    ll = []
     for c in df.columns:
-        ll.append(np.array(df[df.loc[:,c] < threshold].sort_values(by=[c],ascending=True)[:size].loc[:,c].index))
+        ll.append(np.array(df[df.loc[:, c] < threshold].sort_values(by=[c], ascending=True)[:size].loc[:, c].index))
     trends = pd.DataFrame(ll).T
     trends.columns = columns[1:]
     return trends
+
 
 def readData(filename):
     print('Reading data....')
@@ -82,7 +86,6 @@ def readData(filename):
     end = time.time()
     print(f'Read finished in {end-start:.2f} seconds.\n')
     return df
-
 
 
 print('Generating Trends')
@@ -96,7 +99,7 @@ min_freq = config['General']['min_freq']
 max_freq = config['General']['max_freq']
 dict_size = config['General']['dict_size']
 writer = pd.ExcelWriter(output, engine='xlsxwriter')
-df= readData(inputfile)
+df = readData(inputfile)
 for column in ['Unigrams', 'Bigrams']:
     semterm, columns = getSemesterTermFrequencyMatrixFrom(df, column)
     semterm = normalize(semterm)

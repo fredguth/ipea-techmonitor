@@ -43,22 +43,6 @@ def normalize(df):
     return df.div(df.sum(axis=0), axis=1)*100000
 
 
-# def getK(df, transform=None, past=3):
-#     if transform == 'max':
-#         table = np.zeros(shape=df.shape)
-#         for i, (index, row) in tqdm(enumerate(df.iterrows())):
-#             for j in range(len(df.columns)-1):
-#                 table[i, j] = max(row[:j+1])
-#     if transform == 'mean':
-#         table = np.zeros(shape=df.shape)
-#         for i, (index, row) in tqdm(enumerate(df.iterrows())):
-#             for j in range(len(df.columns)-1):
-#                 bound = max(0, j-past)
-#                 table[i, j] = row[bound:j+1].mean()
-#         df = pd.DataFrame(table, index=df.index, columns=df.columns)
-#     return df.loc[:, 1:len(df.columns)-1]
-
-
 def getPoisson(df, transform=None):
     print('Calculating poisson percentages')
     index = df.index
